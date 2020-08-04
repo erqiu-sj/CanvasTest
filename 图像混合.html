@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        box-shadow: 0 0 20px gray;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="Sum" height="700px" width="700px">
+      您的浏览器版本过低！
+    </canvas>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const Canvas = document.querySelector("#Sum");
+      if (Canvas.getContext) {
+        // 目标图像：画布已经存在的图像
+        // 源图像：即将画到画布上的图像
+        // 此处为目标图像
+        const t = Canvas.getContext("2d");
+        t.fillStyle = "gray";
+        t.fillRect(50, 50, 100, 100);
+        // 图像混合
+        // 此处为源图像
+        // source-over :  目标区域，源图像覆盖目标图像
+        // desination-over : 重叠区域，目标图像覆盖源图像
+        // source-atop：只显示与目标区域重叠的部分
+        // desination-atop：只显示与源图像区域重叠的部分
+        // source-in :  只显示源图像与目标图像重叠的源图像，目标图像不显示
+        // source-out :  重叠部分不显示，只显示不重叠的源图像
+        // desination-out :  重叠部分不显示，只显示不重叠的目标图像
+        // 关于globalCompositeOperation 查看https://www.w3school.com.cn/tags/canvas_globalcompositeoperation.asp
+        t.globalCompositeOperation = "source-over";
+        t.fillStyle = "red";
+        t.arc(150, 150, 100, 0, Math.PI * 2);
+        t.fill();
+      }
+    </script>
+  </body>
+</html>

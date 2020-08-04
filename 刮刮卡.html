@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      img {
+        height: 26.25rem;
+        width: 26.25rem;
+      }
+      #Guagua {
+        height: 26.25rem;
+        width: 26.25rem;
+        position: absolute;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      src="https://p1.music.126.net/ONBvYa_yYg6QWEEn9KmWoQ==/109951164867829503.jpg"
+      alt=""
+    />
+    <canvas id="Guagua">
+      您的浏览器版本过低！
+    </canvas>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const Canvas = document.querySelector("#Guagua");
+      if (Canvas.getContext) {
+        const cx = Canvas.getContext("2d");
+        cx.beginPath();
+        // 给Canvas一层蒙版
+        cx.fillStyle = "gray";
+        cx.fillRect(0, 0, Canvas.width, Canvas.height);
+        //当你鼠标划过的时候可以拿到一个交叉内容
+        cx.globalCompositeOperation = "destination-out";
+        cx.lineWidth = 20;
+        //可以让你的画笔成为一种形状
+        cx.lineCap = "round";
+        Canvas.onmousedown = function (e) {
+          const ex = e || window.event;
+          const x = ex.clientX;
+          const y = ex.clientY;
+          cx.moveTo(x, y);
+          Canvas.onmousemove = function (e) {
+            const ex = e || window.event;
+            const x = ex.clientX;
+            const y = ex.clientY;
+            cx.lineTo(x, y);
+            cx.stroke();
+          };
+        };
+        Canvas.onmouseup = function (e) {
+          Canvas.onmousedown = "";
+        };
+      }
+    </script>
+  </body>
+</html>

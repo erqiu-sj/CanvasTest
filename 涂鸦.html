@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="Clip" height="700px" width="700px">
+      您的浏览器版本过低！
+    </canvas>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const Canvas = document.querySelector("#Clip");
+      if (Canvas.getContext) {
+        const Can = Canvas.getContext("2d");
+        Canvas.onmousedown = function (e) {
+          // 处理兼容问题
+          const ev = e || window.event;
+          const x = e.clientX - Canvas.offsetLeft;
+          const y = e.clientY - Canvas.offsetTop;
+
+          Can.strokeStyle = "black";
+          Can.lineWidth = 10;
+
+          Can.beginPath();
+          Can.moveTo(x, y);
+          Canvas.onmousemove = function (e) {
+            const ev = e || window.event;
+            const x = e.clientX - Canvas.offsetLeft;
+            const y = e.clientY - Canvas.offsetTop;
+
+            Can.lineTo(x, y);
+            Can.stroke();
+          };
+          Canvas.onmouseup = () => {
+            Canvas.onmousemove = "";
+          };
+        };
+      }
+    </script>
+  </body>
+</html>
